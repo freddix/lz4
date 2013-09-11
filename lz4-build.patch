@@ -1,0 +1,51 @@
+diff -aurN lz4-r104.orig/cmake/CMakeLists.txt lz4-r104/cmake/CMakeLists.txt
+--- lz4-r104.orig/cmake/CMakeLists.txt	2013-09-10 14:02:59.639504613 +0200
++++ lz4-r104/cmake/CMakeLists.txt	2013-09-10 14:22:45.652071946 +0200
+@@ -9,6 +9,16 @@
+ 
+ 
+ cmake_minimum_required (VERSION 2.6)
++SET(OS ${CMAKE_SYSTEM_NAME})
++IF(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
++    find_file(GNU_INSTALL_DIRS_FROM_CMAKE ${CMAKE_ROOT}/Modules/GNUInstallDirs.cmake)
++    IF(GNU_INSTALL_DIRS_FROM_CMAKE)
++	message(STATUS "Please install cmake-data or GNUInstallDirs.cmake")
++    ELSE()
++	include(${CMAKE_ROOT}/Modules/GNUInstallDirs.cmake)
++    ENDIF()
++ENDIF()
++
+ INCLUDE (CheckTypeSize)
+ check_type_size("void *" SIZEOF_VOID_P)
+ IF( ${SIZEOF_VOID_P} STREQUAL  "8" )
+@@ -69,8 +79,8 @@
+     set_target_properties(liblz4_static PROPERTIES OUTPUT_NAME lz4)
+ 
+     install(TARGETS liblz4_static
+-        LIBRARY DESTINATION lib
+-        ARCHIVE DESTINATION lib
++	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
++	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
+     )
+ 
+     # for shared library o
+@@ -80,8 +90,8 @@
+             SOVERSION ${LZ4_SOVERSION})
+ 
+     install(TARGETS liblz4
+-        LIBRARY DESTINATION lib
+-        ARCHIVE DESTINATION lib
++	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
++	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libraries
+     )
+     
+     install(FILES
+@@ -99,7 +109,7 @@
+ ADD_DEFINITIONS("-Wundef")
+ ADD_DEFINITIONS("-Wcast-align")
+ ADD_DEFINITIONS("-Wno-implicit-function-declaration")
+-ADD_DEFINITIONS("-Os -march=native -std=c99")
++ADD_DEFINITIONS("-std=c99")
+ INCLUDE_DIRECTORIES (${SRC_DIR})
+ 
+ 
