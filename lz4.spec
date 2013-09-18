@@ -1,7 +1,7 @@
 Summary:	Extremely Fast Compression algorithm
 Name:		lz4
 Version:	r104
-Release:	3
+Release:	4
 License:	GPL v2 (cli), BSD (libs)
 Group:		Applications
 # svn checkout http://lz4.googlecode.com/svn/trunk/ lz4-rNUM
@@ -37,6 +37,8 @@ This is the package containing the header files for lz4 library.
 cd cmake
 %cmake
 %{__make}
+cd ..
+%{__make} lz4
 
 %install
 rm -rf $RPM_BUILD_ROOT
