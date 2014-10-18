@@ -1,7 +1,7 @@
 Summary:	Extremely Fast Compression algorithm
 Name:		lz4
 Version:	r104
-Release:	4
+Release:	5
 License:	GPL v2 (cli), BSD (libs)
 Group:		Applications
 # svn checkout http://lz4.googlecode.com/svn/trunk/ lz4-rNUM
